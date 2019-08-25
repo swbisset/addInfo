@@ -5,6 +5,7 @@ import time
 
 
 def readFile(file):
+    #This reads in the files, either as a .csv, .tsv, or other (i.e. fasta) format
     try:
         open(file)
     except IOError:
@@ -39,8 +40,7 @@ def addColumn(list1, list2, c1, c2, i, h, out_file):
     else:
         longList = False
 
-    hasName = False
-    name = ""
+    info = "" # 'info' is just a string which carries the additional bit of information to be passed between files
 
     # This appends the header to the new list 'outList', if '-H' flag is selected
     if len(h) > 1:
@@ -60,14 +60,13 @@ def addColumn(list1, list2, c1, c2, i, h, out_file):
         compare = str(list1[x][c1])
         for y in range(0, len(list2)):
             if compare in str(list2[y][c2]):
-                # hasName = True
-                name = str(list2[y][i])
+                info = str(list2[y][i])
                 break
         for z in range(0, len(list1[x])):
             colList.append(list1[x][z])
-        colList.append(name)
+        colList.append(info)
         outList.append(colList[0:])
-        name = ""
+        info = ""
         position += 1
 
         # If 'list1' contains more than 'chunkSize' lines, then this allows the output file to be made
@@ -119,7 +118,6 @@ def writeOutput(output, out_file, overwrite):
         with open(out_file, 'wb') as w:
             writer = csv.writer(w)
             writer.writerows(output)
-            #print "Output written to %s" % out_file
     else:
         with open(out_file, 'a') as w:
             writer = csv.writer(w)
@@ -163,6 +161,7 @@ if args.column2:
 else:
     c2 = 0
 
+#Probably not a great name, but 'i' in here refers to the column of 'File2' which contains the info to be added
 if args.info_column:
     i = int(args.info_column) - 1
 else:
@@ -182,4 +181,5 @@ if args.fasta:
 else:
     addColumn(list1, list2, c1, c2, i, header, out_file)
 
+#Just to see how long things took 
 print "Process took %s seconds" % (str(time.time() - starttime))
