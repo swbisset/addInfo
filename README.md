@@ -3,6 +3,34 @@ Adds information from different csv and fasta files. The most common use for thi
 
 **Warning:** addInfo.py is written in *Python version 2.7*, not *Python 3.0*. Maybe one day that will be fixed. 
 
+```
+usage: addInfo.py [-h] [-1 COLUMN1] [-2 COLUMN2] [-i INFO_COLUMN] [-H HEADER]
+                  [-f] [-o OUTPUT]
+                  File1 File2
+
+positional arguments:
+  File1                 File to be added to, csv or tab-delimited format
+  File2                 File with info to be taken from, in csv or tab-
+                        delimited format
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -1 COLUMN1, --column1 COLUMN1
+                        Set column number in File1 to be compared. Default is
+                        1
+  -2 COLUMN2, --column2 COLUMN2
+                        Set column number in File2 to be compared. Default is
+                        1
+  -i INFO_COLUMN, --info_column INFO_COLUMN
+                        Select which column in File2 to add to File1. Default
+                        is 2
+  -H HEADER, --header HEADER
+                        Does File1 have a header line?
+  -f, --fasta           Sets expected format for File2 to be .fasta format
+  -o OUTPUT, --output OUTPUT
+                        Set name of output file
+  ``` 
+
 ## Usage 
 Essentially, addInfo.py takes in two inputs: **File1** is a csv or tsv file (such as a BLAST+ multi-query output file) which needs some additional information added. **File2** is a file, which can be in csv, tsv, or another (*e.g.* fasta) input, and contains the additional information to be added as a new column to **File1**. Importantly, both **File1** and **File2** need to have at least one column each which contains the same information, such as gene or protein IDs, or whatever it is you are wanting to compare. 
 
